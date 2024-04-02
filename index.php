@@ -1,0 +1,379 @@
+<?php
+session_start();
+require_once("database/database.php");
+?>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Сайт садового некоммерческого товарищества СОСНА создан для информирования проживающих садоводов о новостях, расписании автобусов и мероприятиях товарищества.">
+    <meta name="Keywords" content="СНТ Сосна, садовое некоммерческое товарищество СОСНА, расписание автобусов Шатура - д.Красное, расписание автобусов д.Красное - Орехово-Зуево, садоводство">
+    <meta property="og:title" content="СНТ СОСНА">
+    <meta property="og:site_name" content="Сайт некоммерческого товарищества Сосна">
+    <meta property="og:url" content="https://snt-sosna.ru">
+    <meta property="og:description" content="Сайт садового некоммерческого товарищества СОСНА создан для информирования садоводов о новостях и жизни товарищества.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://snt-sosna.ru/image/intro.webp">
+    <link rel="canonical" href="https://snt-sosna.ru">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!--link href="https://fonts.googleapis.com/css2?family=Inter:wght@100&family=Ruslan+Display&display=swap" rel="stylesheet"-->
+    <title>Сайт садового некоммерческого товарищества СОСНА</title>
+    <link rel="icon" href="https://snt-sosna.ru/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style/style.css" type="text/css">
+    <link rel="stylesheet" href="style/media.css" type="text/css">
+    <link rel="stylesheet" href="style/media_login_form.css" type="text/css">
+
+    <!-- !HEADER -->
+    <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(96474919, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/96474919" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+</head>
+
+<body>
+        
+<header>
+        <div class="header">
+            <div class="container">
+                <nav class="menu__nav">
+                    <input style="margin: 10px;" type='checkbox' name="responsive-menu" id='responsive-menu'>
+                    <label for="responsive-menu" style="font-size: 30px; font-weight: 700;">&nbsp;&nbsp;&nbsp;Меню</label>
+                    <?php
+                        $url = $_SERVER['REQUEST_URI']; 
+                            if (preg_match('/news/i', $url)){$news="active";}else{$news="nav__link";}; 
+                            if (preg_match('/forum/i', $url)){$forum="active";}else{$forum="nav__link";}; 
+                            if (preg_match('/information/i', $url)){$information="active";}else{$information="nav__link";}; 
+                            if (preg_match('/contact/i', $url)){$contact="active";}else{$contact="nav__link";};
+                            if (preg_match('/gallery/i', $url)){$gallery="active";}else{$gallery="nav__link";};
+                            if (preg_match('/by/i', $url)){$by="active";}else{$by="nav__link";};
+                        echo "<ul><li><a class='nav__link $news' href='pages/news.php'>Новости</a></li>
+                        <li><a class='nav__link $forum' href='pages/forum.php'>Форум</a></li>
+                        <li><a class='nav__link $information' href='pages/information.php'>информация</a></li>
+                        <li class='hidden_mobile'><a href='index.php'><img class='img__logo' width='100' src='image/logo_header.png' alt='logo'><p>На главную</p></a></li>
+                        <li><a class='nav__link $contact' href='pages/contact.php'>контакты</a></li>
+                        <li><a class='nav__link $gallery' href='pages/gallery.php'>галерея</a></li>
+                        <li><a class='nav__link $by' href='pages/about.php'>О СНТ</a></li>
+                    </ul>";
+                    ?>
+                </nav>
+            </div>
+        </div>
+        <div class="personal__account">
+            <?php
+                require_once('pages/login_form.php');
+            ?>
+        </div>
+
+    </header>
+
+    <!-- !HEADER end -->
+    <!-- TODO INTRO -->
+    <div class="intro">
+        <div class="container">
+            <div class="intro__inner">
+                <h1 class="visually-hidden">Сайт садового некоммерческого товарищества СОСНА</h1>
+                <h4 class="visually-hidden">Наш сайт садового некоммерческого товарищества</h4>
+                <img src="image/intro__.webp" alt="сайт садового некоммерческого товарищества">
+            </div>
+        </div>
+    </div>
+    <!-- TODO INTRO end -->
+    <!-- !MAIN -->
+    <main>
+        <!-- TODO INFORMATION BLOCK -->
+        <section class="information">
+            <div class="container">
+                <!--div class="decor__info"><img src="image/block.png" alt="snake"></div>
+                <div class="info">
+                    <h2 style="padding-bottom:30px;" class="shadow">Наше товарищество</h2>
+                    <div class="block__1">
+                        <div>
+                            <img class="info_foto1" src="image/foto1.jpg" alt="мероприятие в снт">
+                        </div>
+                        <div class="block__text">
+                            <p>Добропожаловать на сайт садового некоммерческого товарищества "СОСНА".</p>
+                            <p>Мы расположены на территории поля и лесного массива, поэтому воздух здесь чистый и свежий. Нет городского шума, а автомобильная трасса находится на достаточном отдалении. </p>
+                            
+                            <p>В прилежащих лесопосадках растут ягоды и грибы. Иногда, на лесных тропинках можно встретить зайца, а на ветках деревьев можно заметить белочку.</p>
+                            
+                            <p>На территории есть не большой пляж и зона для игры в волейбол. Все желающие могут прийти поиграть, а затем расслабиться под лучами солнышка и принять водные процедуры в пруду, а вечером устроить романтический вечер сидя у воды или организовать не большой пикничок. </p>
+                            
+                        </div>
+                        <div class="block__foto">
+                        <img style="" class="info_foto2" src="image/foto2.png" alt="фото с мероприятия"></div>
+                    </div>
+                    <div class="block__2">
+                        <div class="block__text2">
+                            <p>У нас живут очень добрые и активные люди которые любят устраивать различные
+                                конкурсы и мероприятия.
+                            </p>
+                            <ul class="list">
+                                <li>В дни летних каникул был объявлен конкурс детских рисунков на тему: "Здравствуй ЛЕТО!", по результатам которого все дети получили памятные подарки.</li>
+                                
+                                <li>В мае мы отметили "День Победы", где дети рассказывали стихи, желающие исполнили песни военных лет под аккомпанемент баяниста и "минусовок", а в окончании праздника, все гости отведали гречневой каши с тушенкой.</li>
+                                
+                                <li>19 августа 2023 года мы отметили зарождениелюбимого СНТ - 35 лет веселым и задорным концертом, на котором выступал наш любимый баянист, дети рассказывали стихи и пели свои любимые песни, звучала зажигательная музыка. Была устроена небольшая мини-ярмарка садоводов. Практически каждый принёс что-то из своего урожая для угощения всех желающих.</li>
+                                
+                                <li>В ночь с 31 декабря на 1 января встретили 2024 год рядом с нарядной ёлкой возле Правления. Зажигательная музыка звучала до утра. Желающие поделиться любимой композицией - пели в караоке. Разнообразные конкурсы с достоинством были пройдены участниками мероприятия. Ни кто не смог уйти без подарка - отличного и позитивного настроения!</li>
+                            </ul>
+                        </div>
+                        <div><img class="info_foto3" src="image/foto3.png" alt="лестница на пруду"></div>
+                        <img class="info_foto4" src="image/foto4.webp" alt="фото с пруда">
+                    </div>
+                </div-->
+                
+                <div class="container">
+<h2 class="shadow">Наше товарищество</h2>
+  <div class="posts-list">
+  
+    <article class="post">
+      
+      <div class="post-image"><img src="image/foto1.avif"></div>
+      <!--div class="post-content">
+        
+        <h2 class="post-title">Весна</h2>
+        <p>Очень богат русский язык словами, относящимися к временам года и к природным явлениям, с ними связанным.</p>
+       
+      </div>
+    </article>
+    <article class="post">
+    <div class="post-content">
+<h2 class="post-title">Осень</h2>
+</div-->
+    </article>
+  </div> <!-- конец div class="posts-list"-->
+  
+  
+  
+  <aside>
+  <div class="widget">
+    <p>Добро пожаловать на сайт садового некоммерческого товарищества "СОСНА".</p>
+                            <p>Мы расположены на территории поля и лесного массива, поэтому воздух здесь чистый и свежий. Нет городского шума, а автомобильная трасса находится на достаточном отдалении. </p>
+                            
+                            <p>В прилежащих лесопосадках растут ягоды и грибы. Иногда, на лесных тропинках можно встретить зайца, а на ветках деревьев можно заметить белочку.</p>
+                            
+                            <p>На территории есть не большой пляж и зона для игры в волейбол. Все желающие могут прийти поиграть, а затем расслабиться под лучами солнышка и принять водные процедуры в пруду, а вечером устроить романтический вечер, сидя у воды или организовать не большой пикничок. </p>
+
+      </div>
+</aside>
+
+
+
+
+</div> <!-- конец div class="container"-->
+                
+                
+                
+                
+<div class="container">
+  <div class="posts-list">
+    <article class="post">
+      <div class="post-image"><img src="image/foto2.avif"></div>
+    </article>
+  </div> <!-- конец div class="posts-list"-->
+  <aside>
+  <div class="widget">
+   <p>У нас живут очень добрые и активные садоводы, которые любят устраивать различные
+                                конкурсы и мероприятия.
+                            </p>
+                            
+                                <p> - В дни летних каникул был объявлен конкурс детских рисунков на тему: "Здравствуй ЛЕТО!", по результатам которого все дети получили памятные подарки.</p>
+                                
+                                <p> - В мае мы отметили "День Победы", где дети рассказывали стихи, желающие исполнили песни военных лет под аккомпанемент баяниста и "минусовок", а в окончании праздника, все гости отведали гречневой каши с тушенкой.</p>
+                                
+                                <p> - 19 августа 2023 года мы отметили зарождение любимого СНТ - 35 лет веселым и задорным концертом, на котором выступал наш любимый баянист, дети рассказывали стихи и пели свои любимые песни, звучала зажигательная музыка. Была устроена небольшая мини-ярмарка садоводов. Практически каждый принёс что-то из своего урожая для угощения всех желающих.</p>
+                                
+                                <p> - В ночь с 31 декабря на 1 января встретили 2024 год рядом с нарядной ёлкой возле Правления. Зажигательная музыка звучала до утра. Желающие поделиться любимой композицией - пели в караоке. Разнообразные конкурсы с достоинством были пройдены участниками мероприятия. Ни кто не смог уйти без подарка - отличного и позитивного настроения!</p>
+                                
+                            
+      </div>
+
+
+</aside>
+  
+
+
+</div> <!-- конец div class="container"-->
+                
+            </div>
+        </section>
+        <!-- TODO INFORMATION BLOCK end -->
+
+        <!-- TODO MAP BLOCK 
+        <section class="map">
+            <div class="container">
+                <div class="map__header">
+                    <h2>Карта</h2>
+                </div>
+                <div class="map__info">
+                    <div class="map__description">
+                        <p class="active">Магазин</p>
+                        <p>Колодец</p>
+                        <p>Волейбольная площадка</p>
+                    </div>
+                    <div><img src="image/map.png" alt="карта СНТ"></div>
+                    <div class="map__description">
+                        <p>Пляж</p>
+                        <p>Здание администрации</p>
+                        <p>Трансформаторная будка</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        < TODO MAP BLOCK end -->
+
+        <!-- TODO EVENTS -->
+        <section class="events">
+
+            
+            <div class="block__events__card">
+                <div class="container">
+                    <h2 class="shadow">Мероприятия</h2>
+                    <div class="events__cards decor__margin">
+                        <?php
+                        $arr = mysqli_query($mysql, "SELECT * FROM `events` ORDER BY `number` DESC limit 4");
+                        $arr = mysqli_fetch_all($arr);
+                        foreach ($arr as &$value) {
+                        ?>
+
+                            <div class="card">
+                                <img src="<?= $value[3] ?>" alt="мероприятие <?= $value[0] ?>">
+                                <h3><?= $value[1] ?></h3>
+                                <div class="truncate">
+                                    <p><?= $value[2] ?></p>
+                                </div>
+                                <span><?= $value[4] ?></span>
+                            </div>
+                        <?php
+                        }
+                        ?>
+
+                    </div>
+                    <a href="pages/news.php" class="events__button">Смотреть все</a>
+
+                </div>
+            </div>
+
+        </section>
+        <!-- TODO EVENTS end -->
+
+        <!-- TODO GALLERY -->
+        <section class="gallery">
+    
+                <div class="container">
+
+        <!-- old gallery
+                <h2>Галерея</h2>
+                <div class="block__events__card2">
+                <div class="container">
+                <div class="gallery__block">
+                    <div class="image__gallvert">
+                        <div class="gallery__section">
+                            <img src="image/gallery/gal1.png" alt="галерея 1">
+                            <img src="image/gallery/gal5.png" alt="галерея 2">
+                            <img src="image/gallery/gal2.png" alt="галерея 3">
+                            <img src="image/gallery/gal3.png" alt="галерея 4">
+                        </div>
+                        </div>
+                </div>
+                
+            </div>
+            </div>
+            -->
+            <!-- new gallery with slade -->
+            <h2 class="shadow">Галерея</h2>
+            
+            <div id="slideshow" style="display:inline-block;">
+                
+        <div class="slide-wrapper" style="display:inline-block;justify-content: center;">
+             
+        <!-- Define each of the slides
+         and write the content -->
+          
+            <div class="slide">
+                <img src="image/gal/events1.avif" alt="" class="foto__gal">
+            </div>
+            <div class="slide">
+               <img src="image/gal/foto5.avif" alt="" class="foto__gal">
+            </div>
+            <div class="slide">
+                <img src="image/gal/gal2.avif" alt="" class="foto__gal">
+            </div>
+            <div class="slide">
+                <img src="image/gal/gal3.avif" alt="" class="foto__gal">
+            </div>
+        </div>
+    </div>
+            <div id="slideshow" style="display:inline-block;">
+                
+        <div class="slide-wrapper"style="display:inline-block;justify-content: center;">
+             
+        <!-- Define each of the slides
+         and write the content -->
+          
+            <div class="slide">
+                <img src="image/gal/foto5.avif" alt="" class="foto__gal">
+            </div>
+            <div class="slide">
+               <img src="image/gal/gal2.avif" alt="" class="foto__gal">
+            </div>
+            <div class="slide">
+                <img src="image/gal/gal3.avif" alt="" class="foto__gal">
+            </div>
+            <div class="slide">
+                <img src="image/gal/gal5.avif" alt="" class="foto__gal">
+            </div>
+        </div>
+    </div>
+            <a href="pages/gallery.php" class="gallery__button events__button">Смотреть все</a>
+                </div>
+        </section>
+        <!-- TODO GALLERY end -->
+    </main>
+    <!-- !MAIN end -->
+
+    <!-- !FOOTER -->
+<footer>
+    <div class="container">
+        <div class="block__footer">
+            <?php
+                        $url = $_SERVER['REQUEST_URI']; 
+                            if (preg_match('/news/i', $url)){$news="active";}else{$news="nav__link";}; 
+                            if (preg_match('/forum/i', $url)){$forum="active";}else{$forum="nav__link";}; 
+                            if (preg_match('/information/i', $url)){$information="active";}else{$information="nav__link";}; 
+                            if (preg_match('/contact/i', $url)){$contact="active";}else{$contact="nav__link";};
+                            if (preg_match('/gallery/i', $url)){$gallery="active";}else{$gallery="nav__link";};
+                            if (preg_match('/by/i', $url)){$by="active";}else{$by="nav__link";};
+           echo "
+        <div class='footer__text'>
+            
+                <div><a href='../index.php'><img src='image/logo_footer.png' alt='логотип' style='width:13%;'></a></div>
+                <div><h5 style='text-decoration: none; color: #223001;'>Copyright © Садовое некоммерческое товарищество \"Сосна\" 2024.</h5></div>
+            
+        </div>";
+            ?>
+        </div>
+    </div>
+</footer>
+    <!-- !FOOTER end-->
+</body>
+
+</html>

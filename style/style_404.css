@@ -1,0 +1,204 @@
+/* Начальные настройки страницы */
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+    transition: .5s ease-in-out;
+}
+@font-face {
+	font-family: 'Ruslan Display'; 
+	src: local('Ruslan Display'), 
+		url('../style/RuslanDisplay.ttf'); 
+}
+
+@font-face {
+	font-family: 'Inter'; 
+	src: local('Inter'), 
+		url(../style/Inter.woff2); 
+
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+
+    font-size: 15px;
+    color: #223001;
+}
+
+h2, h5 {
+    margin: 0;
+}
+
+/* Общий контейнер */
+.container {
+    margin: 0 auto;
+   width: 100%;
+   max-width: 1600px;
+   /*padding: 0 15px;*/
+    /* border:1px solid red; */
+}
+.container:after {
+   content: "";
+   display: table;
+   clear: both;
+}
+.responsive-menu{
+font-size: 30px; font-weight: 700;
+}
+.big__404{
+    text-shadow: 2px 0 black, 0 -2px black, -2px 0 black, 0 2px black; 
+    font-size:10em;
+    padding-top: 50px;
+}
+.small__404{
+    text-shadow: 2px 0 black, 0 -2px black, -2px 0 black, 0 2px black; 
+    font-size:4em;
+}
+.logo__footer{
+width:50%;
+max-width:150px;
+}
+
+header {
+    width: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+.img__logo{
+padding-left: 10%;
+    
+}
+
+.header{
+    
+    width:100%;
+    height:200px;
+
+    background-image:url('../image/nav.svg');
+    background-repeat: no-repeat;
+    background-size:100% 100px;
+}
+
+
+/* Nav */
+
+.nav__link {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+
+    font-weight: 600;
+
+    color: #223001;
+    text-decoration: none;
+    margin:20px 10px 0;
+
+    transition: color .1s linear;
+}
+
+.nav__link:after {
+    content: "";
+    display: block;
+    width: 0%;
+    height: 2px;
+
+    background-color: #FFD225;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1;
+
+    transition: width .5s ease-in-out;
+}
+
+.nav__link:hover {
+    color: #223001;
+}
+
+.nav__link:hover:after {
+    width: 100%;
+}
+
+
+/* MAIN */
+main{
+    margin-top:100px;
+}
+
+/* INFO */
+
+
+h2{
+    font-family: 'Ruslan Display';
+    color: #FFD225;
+    font-size:48px;
+    text-align:center;
+}
+
+footer{
+    background-image: url(../image/footer.svg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    margin-top:150px;
+}
+
+.block__footer{
+
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.footer__text{
+    
+    font-size: 16px;
+    margin-top:5px;
+    width:80%;
+    margin-bottom:5px;
+    text-align: center;
+}
+
+footer img{
+    margin: -10% 10px 0;
+    
+}
+
+
+@media (max-width: 768px) {
+        .big__404{
+        font-size: 9.5vw;
+    }
+    .small__404{
+        font-size: 9.5vw;
+    }
+}
+
+@media (min-width:200px) and (max-width:1235px){
+
+    .hidden_mobile img{
+        display: none;
+    }
+    .hidden_mobile p{
+        display:block; 
+        font-weight: 800;
+            padding-top: 20px;
+    }
+}
+@media (min-width:1235px){
+    
+    .hidden_mobile img{
+        display: inline;
+    }
+    .hidden_mobile p{
+        display:none; 
+    }
+    
+
+}
+

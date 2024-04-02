@@ -1,0 +1,5 @@
+User-agent: *
+Crawl-delay: 1
+Host: snt-sosna.ru
+Sitemap: https://snt-sosna.ru/sitemap.xml
+Disallow: /pages/404.php
